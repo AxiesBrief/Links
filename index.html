@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>b00.br — Admin</title>
+    <title>b00.br — Earning Opportunities</title>
+    <meta name="description" content="Curated earning opportunities – affiliate & referral links to boost your income." />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
         /* ─── root ─── */
@@ -15,14 +16,12 @@
             --b2: rgba(255, 255, 255, 0.11);
             --acc: #c8f135;
             --acc2: #5eead4;
-            --red: #f43f5e;
-            --grn: #22c55e;
             --t1: #f0f2ff;
             --t2: #6b7280;
             --t3: #374151;
             --f: 'Outfit', sans-serif;
-            --r: 12px;
-            --rl: 18px;
+            --r: 16px;
+            --rl: 22px;
         }
         * {
             box-sizing: border-box;
@@ -35,545 +34,316 @@
             font-family: var(--f);
             min-height: 100vh;
         }
-
-        /* ─── setup ─── */
-        #setup {
+        body::before {
+            content: '';
             position: fixed;
             inset: 0;
-            background: var(--bg);
-            z-index: 999;
+            pointer-events: none;
+            background-image: radial-gradient(ellipse 60% 40% at 50% -10%, rgba(200, 241, 53, .07), transparent);
+            z-index: 0;
+        }
+
+        /* ─── NAV ─── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(7, 8, 15, .94);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--b1);
+            height: 56px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .box {
-            width: 100%;
-            max-width: 460px;
-            background: var(--s1);
-            border: 1px solid var(--b2);
-            border-radius: var(--rl);
-            padding: 36px 30px;
+            padding: 0 2rem;
+            justify-content: space-between;
         }
         .brand {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 900;
             letter-spacing: -.04em;
-            margin-bottom: 28px;
         }
         .brand span {
             color: var(--acc);
         }
-        .info {
-            background: rgba(200, 241, 53, .05);
-            border: 1px solid rgba(200, 241, 53, .14);
-            border-radius: 8px;
-            padding: 11px 13px;
-            font-size: .78rem;
-            color: var(--t2);
-            margin-bottom: 18px;
-            line-height: 1.7;
-        }
-        .info strong {
-            color: var(--acc);
-        }
-        .err {
-            background: rgba(244, 63, 94, .07);
-            border: 1px solid rgba(244, 63, 94, .22);
-            border-radius: 8px;
-            padding: 9px 12px;
-            font-size: .78rem;
-            color: var(--red);
-            display: none;
-            margin-bottom: 14px;
-        }
-        .err.on {
-            display: block;
-        }
-        .fg {
-            margin-bottom: 14px;
-        }
-        label {
-            display: block;
-            font-size: .7rem;
-            font-weight: 700;
-            color: var(--t2);
-            letter-spacing: .06em;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-        input[type=text],
-        input[type=url],
-        textarea {
-            width: 100%;
-            background: var(--s2);
-            border: 1px solid var(--b1);
-            border-radius: var(--r);
-            padding: 11px 13px;
-            color: var(--t1);
-            font-family: var(--f);
-            font-size: .87rem;
-            outline: none;
-            transition: border-color .2s;
-            resize: vertical;
-        }
-        input:focus,
-        textarea:focus {
-            border-color: rgba(200, 241, 53, .4);
-        }
-        .btn {
-            width: 100%;
-            padding: 13px;
-            border-radius: var(--r);
-            border: none;
-            font-family: var(--f);
-            font-size: .9rem;
-            font-weight: 800;
-            cursor: pointer;
-            background: var(--acc);
-            color: #000;
-            transition: opacity .2s;
-        }
-        .btn:hover {
-            opacity: .88;
-        }
-        .btn:active {
-            transform: scale(.99);
+        .nav-cnt {
+            font-size: .75rem;
+            color: var(--t3);
+            font-family: monospace;
         }
 
-        /* ─── app ─── */
-        #app {
-            display: none;
+        /* ─── HERO ─── */
+        .hero {
+            text-align: center;
+            padding: 72px 2rem 52px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: clamp(2.6rem, 6vw, 5rem);
+            font-weight: 900;
+            letter-spacing: -.06em;
+            line-height: 1;
+            margin-bottom: 14px;
+        }
+        .hero h1 .dot {
+            color: var(--acc);
+        }
+        .hero-sub {
+            color: var(--t2);
+            font-size: .95rem;
+            max-width: 420px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(200, 241, 53, .10);
+            border: 1px solid rgba(200, 241, 53, .18);
+            border-radius: 100px;
+            padding: 4px 16px;
+            font-size: .7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--acc);
+            margin-bottom: 16px;
+        }
+
+        /* ─── SEARCH + REFRESH ROW ─── */
+        .search-row {
+            max-width: 420px;
+            margin: 32px auto 0;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .search-wrap {
+            flex: 1;
             position: relative;
         }
-        header {
-            background: rgba(7, 8, 15, .96);
-            backdrop-filter: blur(18px);
-            border-bottom: 1px solid var(--b1);
-            padding: 0 2rem;
+        .search-wrap input {
+            width: 100%;
+            background: var(--s1);
+            border: 1px solid var(--b2);
+            border-radius: 100px;
+            padding: 11px 20px 11px 44px;
+            color: var(--t1);
+            font-family: var(--f);
+            font-size: .9rem;
+            outline: none;
+            transition: border-color .2s;
+        }
+        .search-wrap input:focus {
+            border-color: rgba(200, 241, 53, .35);
+        }
+        .search-wrap::before {
+            content: '↗';
+            position: absolute;
+            left: 17px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            color: var(--t3);
+            pointer-events: none;
+        }
+
+        /* ─── refresh button ─── */
+        .btn-refresh {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--b2);
+            background: var(--s1);
+            color: var(--t2);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s;
+        }
+        .btn-refresh:hover {
+            border-color: var(--acc);
+            color: var(--acc);
+            transform: rotate(45deg);
+        }
+        .btn-refresh:active {
+            transform: rotate(90deg) scale(.95);
+        }
+        .btn-refresh.spin {
+            animation: spin .6s linear;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ─── status pill ─── */
+        .status-pill {
+            font-size: .65rem;
+            color: var(--t3);
+            font-family: monospace;
+            margin-top: 10px;
+            opacity: .7;
+            transition: opacity .3s;
+        }
+        .status-pill.active {
+            color: var(--acc);
+            opacity: 1;
+        }
+
+        /* ─── GRID ─── */
+        .sec {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 2rem 80px;
+            position: relative;
+            z-index: 1;
+        }
+        .count {
+            font-size: .73rem;
+            color: var(--t3);
+            font-family: monospace;
+            margin-bottom: 20px;
+            padding-left: 2px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        /* ─── CARD ─── */
+        .card {
+            display: block;
+            background: var(--s1);
+            border: 1px solid var(--b1);
+            border-radius: var(--rl);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            transition: transform .22s cubic-bezier(.22, 1, .36, 1), border-color .22s, box-shadow .22s;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(200, 241, 53, .22);
+            box-shadow: 0 24px 50px rgba(0, 0, 0, .5);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 178px;
+            object-fit: cover;
+            display: block;
+        }
+        .card-ph {
+            width: 100%;
+            height: 178px;
+            background: var(--s2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--t3);
+        }
+
+        .card-body {
+            padding: 14px 16px 16px;
+        }
+        .card-title {
+            font-size: .93rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 5px;
+            color: var(--t1);
+        }
+        .card-cap {
+            font-size: .79rem;
+            color: var(--t2);
+            line-height: 1.65;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        .card-foot {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 58px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            border-top: 1px solid var(--b1);
+            padding-top: 10px;
         }
-        .hbrand {
-            font-size: 1.05rem;
-            font-weight: 900;
-            letter-spacing: -.03em;
+        .card-date {
+            font-size: .65rem;
+            color: var(--t3);
+            font-family: monospace;
         }
-        .hbrand span {
+        .go {
+            font-size: .76rem;
+            font-weight: 700;
             color: var(--acc);
-        }
-        .hright {
             display: flex;
             align-items: center;
+            gap: 4px;
+            transition: gap .2s;
+        }
+        .card:hover .go {
             gap: 8px;
         }
-        .hsm {
-            padding: 6px 13px;
-            border-radius: 8px;
-            border: 1px solid var(--b1);
-            background: transparent;
-            color: var(--t2);
-            font-family: var(--f);
-            font-size: .78rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all .2s;
-        }
-        .hsm:hover {
-            color: var(--t1);
-            border-color: var(--b2);
-        }
-        .hsm.d:hover {
-            color: var(--red);
-            border-color: rgba(244, 63, 94, .3);
-        }
-        .rlabel {
-            font-size: .72rem;
-            color: var(--t3);
-            font-family: monospace;
-        }
 
-        .wrap {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 32px 2rem;
-        }
-
-        /* ─── stats ─── */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
-            margin-bottom: 28px;
-        }
-        .stat {
-            background: var(--s1);
-            border: 1px solid var(--b1);
-            border-radius: var(--r);
-            padding: 16px 18px;
-        }
-        .stat-v {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--acc);
-        }
-        .stat-l {
-            font-size: .7rem;
-            color: var(--t2);
-            text-transform: uppercase;
-            letter-spacing: .05em;
-            margin-top: 2px;
-        }
-
-        /* ─── actions ─── */
-        .actions {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 18px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        .btn-add {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            padding: 9px 18px;
-            border-radius: var(--r);
-            border: none;
-            background: var(--acc);
-            color: #000;
-            font-family: var(--f);
-            font-size: .86rem;
-            font-weight: 800;
-            cursor: pointer;
-            transition: opacity .2s;
-        }
-        .btn-add:hover {
-            opacity: .85;
-        }
-        .btn-sync {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 14px;
-            border-radius: var(--r);
-            border: 1px solid var(--b2);
-            background: transparent;
-            color: var(--t2);
-            font-family: var(--f);
-            font-size: .8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all .2s;
-        }
-        .btn-sync:hover {
-            color: var(--t1);
-            border-color: var(--b2);
-        }
-        .sync-info {
-            font-size: .74rem;
-            color: var(--t3);
-            margin-left: auto;
-            font-family: monospace;
-        }
-
-        /* ─── list ─── */
-        .item {
-            background: var(--s1);
-            border: 1px solid var(--b1);
-            border-radius: var(--r);
-            padding: 12px 14px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 8px;
-            transition: border-color .2s;
-        }
-        .item:hover {
-            border-color: var(--b2);
-        }
-        .thumb {
-            width: 68px;
-            height: 48px;
-            border-radius: 8px;
-            background: var(--s2);
-            flex-shrink: 0;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-        }
-        .thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .iinfo {
-            flex: 1;
-            min-width: 0;
-        }
-        .iname {
-            font-size: .88rem;
-            font-weight: 700;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .ilink {
-            font-size: .69rem;
-            color: var(--acc);
-            margin-top: 3px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 360px;
-            opacity: .7;
-        }
-        .idate {
-            font-size: .67rem;
-            color: var(--t3);
-            margin-top: 2px;
-            font-family: monospace;
-        }
-
-        /* ─── DELETE BUTTON (prominent) ─── */
-        .del-btn {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            padding: 6px 14px;
-            border-radius: 8px;
-            border: 1px solid rgba(244, 63, 94, .2);
-            background: rgba(244, 63, 94, .06);
-            color: var(--red);
-            font-family: var(--f);
-            font-size: .75rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all .2s;
-            flex-shrink: 0;
-            letter-spacing: .02em;
-        }
-        .del-btn:hover {
-            background: rgba(244, 63, 94, .14);
-            border-color: rgba(244, 63, 94, .4);
-            transform: scale(1.02);
-        }
-        .del-btn:active {
-            transform: scale(.96);
-        }
-        .del-btn .icon {
-            font-size: .85rem;
-        }
-
-        /* ─── empty ─── */
+        /* ─── EMPTY / LOADER ─── */
         .empty {
             text-align: center;
-            padding: 56px 2rem;
+            padding: 80px 2rem;
+            grid-column: 1/-1;
             color: var(--t3);
         }
         .empty p {
-            margin-top: 6px;
+            margin-top: 8px;
             font-size: .82rem;
         }
-
-        /* ─── modal ─── */
-        .ov {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, .88);
-            backdrop-filter: blur(10px);
-            z-index: 500;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-        }
-        .ov.open {
-            display: flex;
-        }
-        .mod {
-            background: var(--s1);
-            border: 1px solid var(--b2);
-            border-radius: var(--rl);
-            width: 100%;
-            max-width: 500px;
-            max-height: 92vh;
-            overflow-y: auto;
-            padding: 26px;
-            position: relative;
-        }
-        .mx {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 28px;
-            height: 28px;
-            border-radius: 7px;
-            border: 1px solid var(--b1);
-            background: var(--s2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--t2);
-            font-size: .85rem;
-            transition: all .2s;
-        }
-        .mx:hover {
-            color: var(--t1);
-        }
-        .mttl {
-            font-size: 1.1rem;
-            font-weight: 800;
-            margin-bottom: 3px;
-        }
-        .msub {
-            font-size: .78rem;
-            color: var(--t2);
-            margin-bottom: 20px;
-        }
-
-        /* ─── file drop ─── */
-        .drop {
-            border: 2px dashed var(--b2);
-            border-radius: var(--r);
-            padding: 20px 14px;
+        .loader {
             text-align: center;
-            cursor: pointer;
-            background: var(--s2);
-            position: relative;
-            transition: all .2s;
+            padding: 80px;
+            grid-column: 1/-1;
         }
-        .drop:hover {
-            border-color: rgba(200, 241, 53, .3);
+        .spin {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--b1);
+            border-top-color: var(--acc);
+            border-radius: 50%;
+            animation: sp .7s linear infinite;
+            margin: 0 auto 10px;
         }
-        .drop input {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            cursor: pointer;
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: none;
-            padding: 0;
-        }
-        .drop-ico {
-            font-size: 1.6rem;
-            margin-bottom: 5px;
-        }
-        .drop-t {
-            font-size: .79rem;
-            color: var(--t2);
-        }
-        .drop-h {
-            font-size: .7rem;
-            color: var(--t3);
-            margin-top: 3px;
-        }
-        .prev {
-            margin-top: 8px;
-            display: none;
-            background: rgba(200, 241, 53, .05);
-            border: 1px solid rgba(200, 241, 53, .14);
-            border-radius: 8px;
-            padding: 6px 10px;
-            font-size: .76rem;
-            color: var(--acc);
-            align-items: center;
-            gap: 6px;
-        }
-        .img-prev {
-            margin-top: 8px;
-            display: none;
-            border-radius: 8px;
-            overflow: hidden;
-            max-height: 120px;
-        }
-        .img-prev img {
-            width: 100%;
-            max-height: 120px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .pbar {
-            height: 3px;
-            background: var(--s2);
-            border-radius: 2px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        .pfill {
-            height: 100%;
-            background: var(--acc);
-            transition: width .3s;
-            width: 0;
-        }
-        .merr {
-            background: rgba(244, 63, 94, .07);
-            border: 1px solid rgba(244, 63, 94, .2);
-            border-radius: 8px;
-            padding: 9px 12px;
-            font-size: .78rem;
-            color: var(--red);
-            display: none;
-            margin-bottom: 13px;
-        }
-        .merr.on {
-            display: block;
-        }
-
-        /* ─── toasts ─── */
-        .toasts {
-            position: fixed;
-            bottom: 18px;
-            right: 18px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .toast {
-            background: var(--s2);
-            border: 1px solid var(--b2);
-            border-radius: var(--r);
-            padding: 11px 14px;
-            font-size: .79rem;
-            color: var(--t1);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            max-width: 280px;
-            animation: tin .3s ease;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, .5);
-        }
-        .tok {
-            border-left: 3px solid var(--grn);
-        }
-        .tba {
-            border-left: 3px solid var(--red);
-        }
-        .tin {
-            border-left: 3px solid var(--acc2);
-        }
-        @keyframes tin {
-            from {
-                transform: translateX(110%);
-                opacity: 0;
-            }
+        @keyframes sp {
             to {
-                transform: none;
-                opacity: 1;
+                transform: rotate(360deg);
             }
         }
+
+        /* ─── FOOTER ─── */
+        footer {
+            border-top: 1px solid var(--b1);
+            padding: 28px 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        footer p {
+            font-size: .73rem;
+            color: var(--t3);
+            line-height: 1.8;
+        }
+        footer strong {
+            color: var(--acc);
+            font-weight: 700;
+        }
+
         ::-webkit-scrollbar {
             width: 4px;
         }
@@ -582,547 +352,198 @@
             border-radius: 4px;
         }
 
-        /* ─── delete confirm dialog ─── */
-        .del-confirm {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, .85);
-            backdrop-filter: blur(8px);
-            z-index: 600;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+        @media(max-width:520px) {
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .search-row {
+                max-width: 100%;
+                padding: 0 4px;
+            }
         }
-        .del-confirm.open {
-            display: flex;
-        }
-        .del-box {
-            background: var(--s1);
-            border: 1px solid var(--b2);
-            border-radius: var(--rl);
-            max-width: 400px;
-            width: 100%;
-            padding: 28px 26px;
-            text-align: center;
-        }
-        .del-box .icon {
-            font-size: 2.6rem;
-            margin-bottom: 6px;
-        }
-        .del-box h3 {
-            font-size: 1.05rem;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-        .del-box p {
-            font-size: .82rem;
-            color: var(--t2);
-            margin-bottom: 18px;
-            line-height: 1.6;
-        }
-        .del-box .name {
-            color: var(--acc);
-            font-weight: 700;
-        }
-        .del-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-        .del-actions button {
-            padding: 9px 24px;
-            border-radius: 8px;
-            border: none;
-            font-family: var(--f);
-            font-size: .82rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all .2s;
-        }
-        .del-actions .cancel {
-            background: var(--s2);
-            color: var(--t2);
-            border: 1px solid var(--b1);
-        }
-        .del-actions .cancel:hover {
-            color: var(--t1);
-            border-color: var(--b2);
-        }
-        .del-actions .confirm-del {
-            background: var(--red);
-            color: #fff;
-        }
-        .del-actions .confirm-del:hover {
-            opacity: .85;
-        }
-        .del-actions .confirm-del:active {
-            transform: scale(.97);
+        @media(max-width:380px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ─── SETUP ─── -->
-    <div id="setup">
-        <div class="box">
-            <div class="brand">b00<span>.br</span> Admin</div>
-            <div class="info">
-                <strong>GitHub token setup:</strong><br />
-                GitHub → Settings → Developer settings → Personal access tokens → Generate new token (classic) → scope: <strong>repo</strong>
+    <!-- ─── NAV ─── -->
+    <nav>
+        <div class="brand">b00<span>.br</span></div>
+        <div class="nav-cnt" id="navCnt"></div>
+    </nav>
+
+    <!-- ─── HERO ─── -->
+    <div class="hero">
+        <div class="hero-badge">💰 Earn with every click</div>
+        <h1>Earning <span class="dot">Opportunities</span></h1>
+        <p class="hero-sub">Hand‑picked affiliate & referral links — start earning today.</p>
+
+        <!-- search + refresh row -->
+        <div class="search-row">
+            <div class="search-wrap">
+                <input type="text" id="searchInput" placeholder="Search opportunities..." oninput="doSearch()" />
             </div>
-            <div class="err" id="serr"></div>
-            <div class="fg"><label>GitHub Username</label><input type="text" id="gUser" placeholder="your-username" /></div>
-            <div class="fg"><label>Repository Name</label><input type="text" id="gRepo" placeholder="your-repo" /></div>
-            <div class="fg"><label>Branch</label><input type="text" id="gBranch" value="main" /></div>
-            <div class="fg"><label>Personal Access Token</label><input type="text" id="gToken" placeholder="ghp_..." /></div>
-            <button class="btn" onclick="doSetup()">Connect →</button>
+            <button class="btn-refresh" id="refreshBtn" onclick="manualRefresh()" title="Refresh links">⟳</button>
         </div>
+        <div class="status-pill" id="statusPill">● live</div>
     </div>
 
-    <!-- ─── APP ─── -->
-    <div id="app">
-        <header>
-            <div class="hbrand">b00<span>.br</span></div>
-            <div class="hright">
-                <span class="rlabel" id="rlabel"></span>
-                <button class="hsm" onclick="syncNow()">↻ Sync</button>
-                <button class="hsm d" onclick="doDisconnect()">Disconnect</button>
-            </div>
-        </header>
-
-        <div class="wrap">
-            <div class="stats">
-                <div class="stat"><div class="stat-v" id="sTot">0</div><div class="stat-l">Total Links</div></div>
-                <div class="stat"><div class="stat-v" id="sLast" style="font-size:1rem;padding-top:4px">—</div><div class="stat-l">Last Added</div></div>
-            </div>
-
-            <div class="actions">
-                <button class="btn-add" onclick="openModal()">+ Add Link</button>
-                <button class="btn-sync" onclick="syncNow()">↻ Refresh</button>
-                <span class="sync-info" id="syncInfo"></span>
-            </div>
-
-            <div id="list"></div>
-        </div>
+    <!-- ─── GRID ─── -->
+    <div class="sec">
+        <div class="count" id="countLabel"></div>
+        <div class="grid" id="grid"></div>
     </div>
 
-    <!-- ─── ADD MODAL ─── -->
-    <div class="ov" id="ov">
-        <div class="mod">
-            <div class="mx" onclick="closeModal()">✕</div>
-            <div class="mttl">Add Link</div>
-            <div class="msub">Thumbnail + link — shows on b00.br page</div>
-            <div class="pbar"><div class="pfill" id="pfill"></div></div>
-            <div class="merr" id="merr"></div>
-
-            <div class="fg"><label>Title</label><input type="text" id="mName" placeholder="e.g. Binance Referral, Amazon Product..." /></div>
-            <div class="fg"><label>Description (optional)</label><textarea id="mCap" rows="2" placeholder="Short description shown under thumbnail..."></textarea></div>
-            <div class="fg"><label>Link URL</label><input type="url" id="mLink" placeholder="https://..." /></div>
-
-            <div class="fg">
-                <label>Thumbnail</label>
-                <div class="drop">
-                    <input type="file" id="imgIn" accept="image/*" onchange="hImg(this)" />
-                    <div class="drop-ico">🖼️</div>
-                    <div class="drop-t">Click or drop image</div>
-                    <div class="drop-h">JPG · PNG · WebP</div>
-                </div>
-                <div class="img-prev" id="imgPrev"><img id="imgPrevImg" src="" alt="" /></div>
-                <div class="prev" id="imgOk">✅ <span id="imgName"></span></div>
-            </div>
-
-            <button class="btn" id="saveBtn" onclick="doSave()">Save →</button>
-        </div>
-    </div>
-
-    <!-- ─── DELETE CONFIRM DIALOG ─── -->
-    <div class="del-confirm" id="delConfirm">
-        <div class="del-box">
-            <div class="icon">🗑️</div>
-            <h3>Delete this link?</h3>
-            <p>
-                You are about to delete <span class="name" id="delName">—</span>.<br />
-                The thumbnail image will also be removed from GitHub.
-            </p>
-            <div class="del-actions">
-                <button class="cancel" onclick="closeDelConfirm()">Cancel</button>
-                <button class="confirm-del" id="delConfirmBtn">Yes, Delete</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ─── TOASTS ─── -->
-    <div class="toasts" id="toasts"></div>
+    <!-- ─── FOOTER ─── -->
+    <footer>
+        <p>Links on this page may be affiliate or referral links.<br /><strong>b00.br</strong> — your earning hub</p>
+    </footer>
 
     <script>
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  STATE
+        //  CONFIG – matches your admin repo
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        let GH = {},
-            items = [],
-            uploading = false,
-            imgData = null;
-        let pendingDeleteId = null; // for confirm dialog
+        const CONFIG = { owner: 'pankaj112343', repo: 'Algo-code', branch: 'main' };
+        const DATA = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/data/links.json`;
+
+        let items = [],
+            search = '';
+        let refreshTimer = null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  HELPERS
+        //  FETCH + RENDER
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        const api = () => `https://api.github.com/repos/${GH.owner}/${GH.repo}`;
-        const raw = () => `https://raw.githubusercontent.com/${GH.owner}/${GH.repo}/${GH.branch}`;
-        const hdr = () => ({ 'Authorization': `token ${GH.token}`, 'Accept': 'application/vnd.github.v3+json',
-            'Content-Type': 'application/json' });
-
-        function id(i) { return document.getElementById(i); }
-
-        function x(s) {
-            return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  SETUP
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        async function doSetup() {
-            const owner = id('gUser').value.trim(),
-                repo = id('gRepo').value.trim();
-            const branch = id('gBranch').value.trim() || 'main',
-                token = id('gToken').value.trim();
-            const er = id('serr');
-            if (!owner || !repo || !token) { er.textContent = 'Fill all fields';
-                er.classList.add('on'); return; }
-            er.classList.remove('on');
-            GH = { owner, repo, branch, token };
+        async function init(showLoaderFlag = true) {
+            if (showLoaderFlag) showLoader();
+            setStatus('syncing…', true);
             try {
-                const r = await fetch(api(), { headers: hdr() });
-                if (!r.ok) throw 0;
-            } catch (e) { er.textContent = 'Connection failed — check details';
-                er.classList.add('on'); return; }
-            await ensureFile('data/links.json', '[]');
-            localStorage.setItem('b00gh', JSON.stringify(GH));
-            startApp();
-        }
-
-        async function ensureFile(path, def) {
-            const r = await fetch(`${api()}/contents/${path}`, { headers: hdr() });
-            if (r.status === 404) {
-                const bytes = new TextEncoder().encode(def);
-                let bin = '';
-                for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
-                await fetch(`${api()}/contents/${path}`, {
-                    method: 'PUT',
-                    headers: hdr(),
-                    body: JSON.stringify({ message: `init ${path}`, content: btoa(bin), branch: GH.branch })
+                const url = DATA + '?t=' + Date.now() + '_' + Math.random().toString(36).slice(2);
+                const r = await fetch(url, {
+                    headers: { 'Accept': 'application/vnd.github.v3+json' },
+                    cache: 'no-store'
                 });
+                if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                const j = await r.json();
+                const raw = atob(j.content.replace(/\n/g, ''));
+                items = JSON.parse(raw);
+                setStatus(`✓ ${items.length} opportunities`, true);
+            } catch (e) {
+                console.warn('Fetch error:', e);
+                items = [];
+                setStatus('⚠️ offline', false);
             }
+            render();
         }
 
-        function doDisconnect() { if (!confirm('Disconnect?')) return;
-            localStorage.removeItem('b00gh');
-            location.reload(); }
-
-        function startApp() {
-            id('setup').style.display = 'none';
-            id('app').style.display = 'block';
-            id('rlabel').textContent = `${GH.owner}/${GH.repo}`;
-            syncNow();
+        function manualRefresh() {
+            const btn = document.getElementById('refreshBtn');
+            btn.classList.add('spin');
+            init(true);
+            setTimeout(() => btn.classList.remove('spin'), 700);
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  SYNC + RENDER
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        async function syncNow() {
-            id('syncInfo').textContent = 'syncing...';
-            try {
-                const r = await fetch(`${raw()}/data/links.json?t=${Date.now()}`);
-                items = r.ok ? await r.json() : [];
-                renderList();
-                id('syncInfo').textContent = 'synced ' + new Date().toLocaleTimeString();
-            } catch (e) { id('syncInfo').textContent = 'sync failed';
-                toast('Sync failed', 'ba'); }
+        function setStatus(msg, ok) {
+            const el = document.getElementById('statusPill');
+            el.textContent = msg;
+            el.classList.toggle('active', ok);
         }
 
-        function renderList() {
-            id('sTot').textContent = items.length;
-            id('sLast').textContent = items.length ? items[0].name.slice(0, 18) + '…' : '—';
-            const el = id('list');
-            if (!items.length) {
-                el.innerHTML =
-                    '<div class="empty"><div style="font-size:2rem">🔗</div><p>No links yet — add your first one</p></div>';
+        function showLoader() {
+            document.getElementById('grid').innerHTML =
+                '<div class="loader"><div class="spin"></div><div style="font-size:.78rem;color:var(--t3)">Loading opportunities…</div></div>';
+        }
+
+        function doSearch() {
+            search = document.getElementById('searchInput').value.toLowerCase();
+            render();
+        }
+
+        function filtered() {
+            if (!search) return items;
+            return items.filter(s =>
+                s.name.toLowerCase().includes(search) ||
+                (s.cap || '').toLowerCase().includes(search)
+            );
+        }
+
+        function render() {
+            const list = filtered();
+            const cnt = document.getElementById('navCnt');
+            const lbl = document.getElementById('countLabel');
+            cnt.textContent = list.length + ' opportunities';
+            lbl.textContent = list.length + ' opportunities' + (search ? ` matching "${search}"` : '');
+
+            const g = document.getElementById('grid');
+            if (!list.length) {
+                g.innerHTML =
+                    `<div class="empty"><div style="font-size:2.4rem">🔗</div><p>${search ? 'No matching opportunities' : 'No opportunities yet'}</p></div>`;
                 return;
             }
-            el.innerHTML = items.map(s => `
-            <div class="item">
-              <div class="thumb">${s.image ? `<img src="${x(s.image)}" alt="">` : '🔗'}</div>
-              <div class="iinfo">
-                <div class="iname">${x(s.name)}</div>
-                <div class="ilink">${x(s.link || '')}</div>
-                <div class="idate">${s.date || ''}</div>
-              </div>
-              <button class="del-btn" onclick="promptDelete('${s.id}')">
-                <span class="icon">🗑</span> Delete
-              </button>
-            </div>
-          `).join('');
+            g.innerHTML = list.map(s => {
+                const thumb = s.image ?
+                    `<img class="card-img" src="${x(s.image)}" alt="${x(s.name)}" loading="lazy">` :
+                    `<div class="card-ph">💰</div>`;
+                return `
+              <a class="card" href="${x(s.link||'#')}" target="_blank" rel="noopener noreferrer">
+                ${thumb}
+                <div class="card-body">
+                  <div class="card-title">${x(s.name)}</div>
+                  ${s.cap ? `<div class="card-cap">${x(s.cap)}</div>` : ''}
+                  <div class="card-foot">
+                    <span class="card-date">${s.date || ''}</span>
+                    <span class="go">View ↗</span>
+                  </div>
+                </div>
+              </a>
+            `;
+            }).join('');
+        }
+
+        function x(s) {
+            return String(s || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  DELETE — with image cleanup
+        //  AUTO-REFRESH every 30 seconds
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        function promptDelete(sid) {
-            const item = items.find(s => s.id === sid);
-            if (!item) return;
-            pendingDeleteId = sid;
-            id('delName').textContent = item.name;
-            id('delConfirm').classList.add('open');
-            // wire up confirm button
-            const btn = id('delConfirmBtn');
-            // remove old listeners
-            const newBtn = btn.cloneNode(true);
-            btn.parentNode.replaceChild(newBtn, btn);
-            newBtn.addEventListener('click', () => doDelete(sid));
+        function startAutoRefresh() {
+            if (refreshTimer) clearInterval(refreshTimer);
+            refreshTimer = setInterval(() => {
+                init(false);
+            }, 30000);
         }
 
-        function closeDelConfirm() {
-            id('delConfirm').classList.remove('open');
-            pendingDeleteId = null;
-        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  BOOT
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        init(true);
+        startAutoRefresh();
 
-        async function doDelete(sid) {
-            closeDelConfirm();
-            const item = items.find(s => s.id === sid);
-            if (!item) return;
-
-            try {
-                // 1) delete the image file from GitHub if it exists
-                if (item.image) {
-                    const path = extractImagePath(item.image);
-                    if (path) {
-                        toast('Removing image…', 'in');
-                        await deleteFileFromGitHub(path);
-                    }
-                }
-
-                // 2) update links.json
-                const updated = items.filter(s => s.id !== sid);
-                await saveJSON('data/links.json', updated, `delete ${item.name}`);
-                items = updated;
-                renderList();
-                toast(`"${item.name}" deleted ✅`, 'ok');
-
-            } catch (e) {
-                console.error('Delete error:', e);
-                toast('Delete failed: ' + e.message, 'ba');
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                init(false);
             }
-        }
+        });
 
-        // ─── extract image path from raw URL ───
-        function extractImagePath(url) {
-            if (!url) return null;
-            // URL format: https://raw.githubusercontent.com/owner/repo/branch/data/images/xxx.jpg
-            try {
-                const u = new URL(url);
-                const parts = u.pathname.split('/');
-                // parts: ['', 'owner', 'repo', 'branch', 'data', 'images', 'xxx.jpg']
-                if (parts.length < 6) return null;
-                // find where 'data' starts
-                const dataIdx = parts.indexOf('data');
-                if (dataIdx === -1) return null;
-                return parts.slice(dataIdx).join('/');
-            } catch (e) { return null; }
-        }
-
-        // ─── delete file from GitHub ───
-        async function deleteFileFromGitHub(path) {
-            try {
-                // get current file info (for SHA)
-                const info = await fetch(`${api()}/contents/${path}`, { headers: hdr() });
-                if (info.status === 404) return; // already gone
-                if (!info.ok) throw new Error(`get file info failed: ${info.status}`);
-                const data = await info.json();
-                const sha = data.sha;
-
-                // delete
-                const res = await fetch(`${api()}/contents/${path}`, {
-                    method: 'DELETE',
-                    headers: hdr(),
-                    body: JSON.stringify({
-                        message: `delete ${path}`,
-                        sha: sha,
-                        branch: GH.branch
-                    })
-                });
-                if (!res.ok) {
-                    const err = await res.json().catch(() => ({}));
-                    throw new Error(err.message || `delete failed ${res.status}`);
-                }
-                return true;
-            } catch (e) {
-                // if the file doesn't exist, ignore
-                if (e.message && e.message.includes('404')) return;
-                throw e;
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'r' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                const active = document.activeElement;
+                if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) return;
+                e.preventDefault();
+                manualRefresh();
             }
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  SAVE JSON (reused)
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        async function saveJSON(path, data, msg) {
-            const str = JSON.stringify(data, null, 2);
-            const bytes = new TextEncoder().encode(str);
-            let bin = '';
-            for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
-            const content = btoa(bin);
-            let sha = null;
-            try { const r = await fetch(`${api()}/contents/${path}`, { headers: hdr() });
-                if (r.ok) sha = (await r.json()).sha; } catch (e) {}
-            const body = { message: msg, content, branch: GH.branch };
-            if (sha) body.sha = sha;
-            const res = await fetch(`${api()}/contents/${path}`, { method: 'PUT', headers: hdr(), body: JSON.stringify(
-                    body) });
-            if (!res.ok) { const e = await res.json().catch(() => ({}));
-                throw new Error(e.message || `Error ${res.status}`); }
-            return res.json();
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  UPLOAD IMAGE (reused)
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        async function uploadFile(path, b64, msg) {
-            let sha = null;
-            try { const r = await fetch(`${api()}/contents/${path}`, { headers: hdr() });
-                if (r.ok) sha = (await r.json()).sha; } catch (e) {}
-            const body = { message: msg, content: b64, branch: GH.branch };
-            if (sha) body.sha = sha;
-            const res = await fetch(`${api()}/contents/${path}`, { method: 'PUT', headers: hdr(), body: JSON.stringify(
-                    body) });
-            if (!res.ok) throw new Error(`Image upload failed ${res.status}`);
-            return res.json();
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  MODAL / ADD
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        function openModal() {
-            imgData = null;
-            ['mName', 'mCap', 'mLink'].forEach(i => id(i).value = '');
-            id('imgPrev').style.display = 'none';
-            id('imgOk').style.display = 'none';
-            id('merr').classList.remove('on');
-            id('pfill').style.width = '0';
-            id('ov').classList.add('open');
-        }
-
-        function closeModal() { if (!uploading) id('ov').classList.remove('open'); }
-
-        function hImg(inp) {
-            if (!inp.files[0]) return;
-            resize(inp.files[0], 800, data => {
-                imgData = data;
-                id('imgPrev').style.display = 'block';
-                id('imgPrevImg').src = data;
-                id('imgOk').style.display = 'flex';
-                id('imgName').textContent = inp.files[0].name;
-            });
-        }
-
-        function resize(file, maxW, cb) {
-            const r = new FileReader();
-            r.onload = e => {
-                const img = new Image();
-                img.onload = () => {
-                    const c = document.createElement('canvas');
-                    const ratio = Math.min(maxW / img.width, 1);
-                    c.width = img.width * ratio;
-                    c.height = img.height * ratio;
-                    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-                    cb(c.toDataURL('image/jpeg', .82));
-                };
-                img.src = e.target.result;
-            };
-            r.readAsDataURL(file);
-        }
-
-        function prog(p) { id('pfill').style.width = p + '%'; }
-
-        async function doSave() {
-            if (uploading) return;
-            const name = id('mName').value.trim(),
-                cap = id('mCap').value.trim(),
-                link = id('mLink').value.trim();
-            const er = id('merr');
-            if (!name) { er.textContent = 'Enter a title';
-                er.classList.add('on'); return; }
-            if (!link) { er.textContent = 'Enter a link URL';
-                er.classList.add('on'); return; }
-            uploading = true;
-            er.classList.remove('on');
-            id('saveBtn').textContent = 'Saving...';
-            prog(10);
-            try {
-                const sid = Date.now().toString();
-                let imageUrl = null;
-                if (imgData) {
-                    toast('Uploading image…', 'in');
-                    const p = `data/images/${sid}_thumb.jpg`;
-                    const b64 = imgData.includes(',') ? imgData.split(',')[1] : imgData;
-                    await uploadFile(p, b64, `img ${name}`);
-                    imageUrl = `https://raw.githubusercontent.com/${GH.owner}/${GH.repo}/${GH.branch}/${p}`;
-                }
-                prog(70);
-                const entry = {
-                    id: sid,
-                    name,
-                    cap,
-                    link,
-                    image: imageUrl,
-                    date: new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })
-                };
-                await saveJSON('data/links.json', [entry, ...items], `add ${name}`);
-                prog(100);
-                items = [entry, ...items];
-                renderList();
-                closeModal();
-                toast(`"${name}" saved!`, 'ok');
-            } catch (e) { er.textContent = 'Error: ' + e.message;
-                er.classList.add('on');
-                toast('Failed', 'ba'); }
-            uploading = false;
-            id('saveBtn').textContent = 'Save →';
-            prog(0);
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  TOASTS
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        function toast(msg, t = 'ok') {
-            const el = document.createElement('div');
-            el.className = `toast t${t}`;
-            el.innerHTML = `<span>${t === 'ok' ? '✅' : t === 'in' ? '⏳' : '❌'}</span>${msg}`;
-            id('toasts').appendChild(el);
-            setTimeout(() => el.remove(), 3500);
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  CLOSE MODAL ON OVERLAY CLICK
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        id('ov').addEventListener('click', e => { if (e.target === id('ov')) closeModal(); });
-
-        // close delete confirm on overlay click
-        id('delConfirm').addEventListener('click', e => { if (e.target === id('delConfirm')) closeDelConfirm(); });
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  BOOT: restore session
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        const sv = localStorage.getItem('b00gh');
-        if (sv) {
-            try {
-                GH = JSON.parse(sv);
-                id('gUser').value = GH.owner;
-                id('gRepo').value = GH.repo;
-                id('gBranch').value = GH.branch;
-                startApp();
-            } catch (e) { localStorage.removeItem('b00gh'); }
-        }
+        });
     </script>
 
 </body>
