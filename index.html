@@ -245,7 +245,7 @@
 
     <script>
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  CONFIG – your GitHub repo
+        //  CONFIG – your GitHub repo (never shown to users)
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         const CONFIG = {
             owner: 'AxiesBrief',
@@ -253,32 +253,37 @@
             branch: 'main'
         };
 
-        const DATA = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/data/links.json`;
+        // ✅ FIXED: Using raw.githubusercontent.com directly – bypasses API rate limits & CORS issues
+        const DATA = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/data/links.json`;
 
         let items = [], search = '';
         let refreshTimer = null;
 
         async function init(showLoaderFlag = true) {
             if (showLoaderFlag) showLoader();
-            setStatus('syncing…', true);
+            setStatus('Loading…', true);
 
             try {
                 const url = DATA + '?t=' + Date.now() + '_' + Math.random().toString(36).slice(2);
                 const r = await fetch(url, {
-                    headers: { 'Accept': 'application/vnd.github.v3+json' },
-                    cache: 'no-store'
+                    cache: 'no-store',
+                    headers: { 'User-Agent': 'b00br-public-client' } // Just a friendly header
                 });
-                if (!r.ok) throw new Error(`HTTP ${r.status}`);
-                const j = await r.json();
-                const raw = atob(j.content.replace(/\n/g, ''));
-                items = JSON.parse(raw);
-                // ensure hot property
+                if (!r.ok) throw new Error('Network response not ok');
+                items = await r.json(); // Raw file is plain JSON, no atob needed!
                 items.forEach(s => { if (s.hot === undefined) s.hot = false; });
                 setStatus(`✓ ${items.length} opportunities`, true);
             } catch (e) {
-                console.warn('Fetch error:', e);
+                console.warn('Fetch error:', e); // only for debugging – not shown to users
                 items = [];
-                setStatus('⚠️ Fetch failed – check repo/branch or file path', false, true);
+                setStatus('⚠️ Failed to load – check your internet connection', false, true);
+                // Show a friendly message in the grid
+                document.getElementById('grid').innerHTML =
+                    `<div class="empty"><div style="font-size:2.4rem">📡</div><p>Failed to load – check your internet connection</p></div>`;
+                document.getElementById('hotGrid').innerHTML = '';
+                document.getElementById('hotSection').style.display = 'none';
+                document.getElementById('countLabel').textContent = '—';
+                return;
             }
             render();
         }
@@ -322,23 +327,21 @@
             const hotList = list.filter(s => s.hot);
             const normalList = list.filter(s => !s.hot);
 
-            // Update counts
             const cnt = document.getElementById('navCnt');
             const lbl = document.getElementById('countLabel');
             cnt.textContent = list.length + ' opportunities';
             lbl.textContent = list.length + ' opportunities' + (search ? ` matching "${search}"` : '');
 
-            // Render Hot Picks section
+            // Hot picks section (only when not searching)
             const hotSection = document.getElementById('hotSection');
             const hotGrid = document.getElementById('hotGrid');
-            if (hotList.length > 0 && !search) { // only show hot picks when not searching
+            if (hotList.length > 0 && !search) {
                 hotSection.style.display = 'block';
                 hotGrid.innerHTML = hotList.map(s => cardHTML(s, true)).join('');
             } else {
                 hotSection.style.display = 'none';
             }
 
-            // Render normal grid
             const g = document.getElementById('grid');
             if (!list.length) {
                 g.innerHTML =
@@ -401,5 +404,6 @@
             }
         });
     </script>
+
 </body>
 </html>
