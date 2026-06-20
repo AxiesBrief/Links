@@ -193,6 +193,10 @@
             color: var(--acc);
             opacity: 1;
         }
+        .status-pill.error {
+            color: #f43f5e;
+            opacity: 1;
+        }
 
         /* ─── GRID ─── */
         .sec {
@@ -408,21 +412,30 @@
 
     <script>
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  CONFIG – matches your admin repo
+        //  ✅ CONFIG – already set to your repository
+        //  Username: AxiesBrief
+        //  Repo:     Links
+        //  Branch:   main
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        const CONFIG = { owner: 'pankaj112343', repo: 'Algo-code', branch: 'main' };
+        const CONFIG = {
+            owner: 'AxiesBrief',
+            repo: 'Links',
+            branch: 'main'
+        };
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  DO NOT EDIT BELOW THIS LINE
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         const DATA = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/data/links.json`;
 
         let items = [],
             search = '';
         let refreshTimer = null;
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  FETCH + RENDER
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         async function init(showLoaderFlag = true) {
             if (showLoaderFlag) showLoader();
             setStatus('syncing…', true);
+
             try {
                 const url = DATA + '?t=' + Date.now() + '_' + Math.random().toString(36).slice(2);
                 const r = await fetch(url, {
@@ -437,7 +450,7 @@
             } catch (e) {
                 console.warn('Fetch error:', e);
                 items = [];
-                setStatus('⚠️ offline', false);
+                setStatus('⚠️ Fetch failed – check repo/branch or file path', false, true);
             }
             render();
         }
@@ -449,10 +462,11 @@
             setTimeout(() => btn.classList.remove('spin'), 700);
         }
 
-        function setStatus(msg, ok) {
+        function setStatus(msg, ok, isError = false) {
             const el = document.getElementById('statusPill');
             el.textContent = msg;
             el.classList.toggle('active', ok);
+            el.classList.toggle('error', isError);
         }
 
         function showLoader() {
@@ -514,9 +528,6 @@
                 .replace(/"/g, '&quot;');
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  AUTO-REFRESH every 30 seconds
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function startAutoRefresh() {
             if (refreshTimer) clearInterval(refreshTimer);
             refreshTimer = setInterval(() => {
