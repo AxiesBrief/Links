@@ -1,163 +1,549 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>b00.br</title>
-<meta name="description" content="Links by b00.br">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#07080f;--s1:#0f1018;--s2:#161824;
-  --b1:rgba(255,255,255,0.06);--b2:rgba(255,255,255,0.11);
-  --acc:#c8f135;--acc2:#5eead4;
-  --t1:#f0f2ff;--t2:#6b7280;--t3:#374151;
-  --f:'Outfit',sans-serif;--r:16px;--rl:22px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--t1);font-family:var(--f);min-height:100vh}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(ellipse 60% 40% at 50% -10%,rgba(200,241,53,.07),transparent);z-index:0}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>b00.br</title>
+    <meta name="description" content="Links by b00.br" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+        /* ─── root ─── */
+        :root {
+            --bg: #07080f;
+            --s1: #0f1018;
+            --s2: #161824;
+            --b1: rgba(255, 255, 255, 0.06);
+            --b2: rgba(255, 255, 255, 0.11);
+            --acc: #c8f135;
+            --acc2: #5eead4;
+            --t1: #f0f2ff;
+            --t2: #6b7280;
+            --t3: #374151;
+            --f: 'Outfit', sans-serif;
+            --r: 16px;
+            --rl: 22px;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: var(--bg);
+            color: var(--t1);
+            font-family: var(--f);
+            min-height: 100vh;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image: radial-gradient(ellipse 60% 40% at 50% -10%, rgba(200, 241, 53, .07), transparent);
+            z-index: 0;
+        }
 
-/* NAV */
-nav{position:sticky;top:0;z-index:100;background:rgba(7,8,15,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--b1);height:56px;display:flex;align-items:center;padding:0 2rem;justify-content:space-between}
-.brand{font-size:1.2rem;font-weight:900;letter-spacing:-.04em}
-.brand span{color:var(--acc)}
-.nav-cnt{font-size:.75rem;color:var(--t3);font-family:monospace}
+        /* ─── NAV ─── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(7, 8, 15, .94);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--b1);
+            height: 56px;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            justify-content: space-between;
+        }
+        .brand {
+            font-size: 1.2rem;
+            font-weight: 900;
+            letter-spacing: -.04em;
+        }
+        .brand span {
+            color: var(--acc);
+        }
+        .nav-cnt {
+            font-size: .75rem;
+            color: var(--t3);
+            font-family: monospace;
+        }
 
-/* HERO */
-.hero{text-align:center;padding:72px 2rem 52px;position:relative;z-index:1}
-.hero h1{font-size:clamp(2.6rem,6vw,5rem);font-weight:900;letter-spacing:-.06em;line-height:1;margin-bottom:14px}
-.hero h1 .dot{color:var(--acc)}
-.hero-sub{color:var(--t2);font-size:.95rem;max-width:380px;margin:0 auto;line-height:1.8}
+        /* ─── HERO ─── */
+        .hero {
+            text-align: center;
+            padding: 72px 2rem 52px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: clamp(2.6rem, 6vw, 5rem);
+            font-weight: 900;
+            letter-spacing: -.06em;
+            line-height: 1;
+            margin-bottom: 14px;
+        }
+        .hero h1 .dot {
+            color: var(--acc);
+        }
+        .hero-sub {
+            color: var(--t2);
+            font-size: .95rem;
+            max-width: 380px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
 
-/* SEARCH */
-.search-wrap{max-width:420px;margin:32px auto 0;position:relative}
-.search-wrap input{width:100%;background:var(--s1);border:1px solid var(--b2);border-radius:100px;padding:11px 20px 11px 44px;color:var(--t1);font-family:var(--f);font-size:.9rem;outline:none;transition:border-color .2s}
-.search-wrap input:focus{border-color:rgba(200,241,53,.35)}
-.search-wrap::before{content:'↗';position:absolute;left:17px;top:50%;transform:translateY(-50%);font-size:1rem;color:var(--t3);pointer-events:none}
+        /* ─── SEARCH + REFRESH ROW ─── */
+        .search-row {
+            max-width: 420px;
+            margin: 32px auto 0;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .search-wrap {
+            flex: 1;
+            position: relative;
+        }
+        .search-wrap input {
+            width: 100%;
+            background: var(--s1);
+            border: 1px solid var(--b2);
+            border-radius: 100px;
+            padding: 11px 20px 11px 44px;
+            color: var(--t1);
+            font-family: var(--f);
+            font-size: .9rem;
+            outline: none;
+            transition: border-color .2s;
+        }
+        .search-wrap input:focus {
+            border-color: rgba(200, 241, 53, .35);
+        }
+        .search-wrap::before {
+            content: '↗';
+            position: absolute;
+            left: 17px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            color: var(--t3);
+            pointer-events: none;
+        }
 
-/* GRID */
-.sec{max-width:1200px;margin:0 auto;padding:40px 2rem 80px;position:relative;z-index:1}
-.count{font-size:.73rem;color:var(--t3);font-family:monospace;margin-bottom:20px;padding-left:2px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+        /* ─── refresh button ─── */
+        .btn-refresh {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--b2);
+            background: var(--s1);
+            color: var(--t2);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s;
+        }
+        .btn-refresh:hover {
+            border-color: var(--acc);
+            color: var(--acc);
+            transform: rotate(45deg);
+        }
+        .btn-refresh:active {
+            transform: rotate(90deg) scale(.95);
+        }
+        .btn-refresh.spin {
+            animation: spin .6s linear;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
-/* CARD */
-.card{display:block;background:var(--s1);border:1px solid var(--b1);border-radius:var(--rl);overflow:hidden;text-decoration:none;color:inherit;transition:transform .22s cubic-bezier(.22,1,.36,1),border-color .22s,box-shadow .22s;cursor:pointer}
-.card:hover{transform:translateY(-6px);border-color:rgba(200,241,53,.22);box-shadow:0 24px 50px rgba(0,0,0,.5)}
+        /* ─── status pill ─── */
+        .status-pill {
+            font-size: .65rem;
+            color: var(--t3);
+            font-family: monospace;
+            margin-top: 10px;
+            opacity: .7;
+            transition: opacity .3s;
+        }
+        .status-pill.active {
+            color: var(--acc);
+            opacity: 1;
+        }
 
-.card-img{width:100%;height:178px;object-fit:cover;display:block}
-.card-ph{width:100%;height:178px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:3rem;color:var(--t3)}
+        /* ─── GRID ─── */
+        .sec {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 2rem 80px;
+            position: relative;
+            z-index: 1;
+        }
+        .count {
+            font-size: .73rem;
+            color: var(--t3);
+            font-family: monospace;
+            margin-bottom: 20px;
+            padding-left: 2px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
 
-.card-body{padding:14px 16px 16px}
-.card-title{font-size:.93rem;font-weight:700;line-height:1.4;margin-bottom:5px;color:var(--t1)}
-.card-cap{font-size:.79rem;color:var(--t2);line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:12px}
-.card-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--b1);padding-top:10px}
-.card-date{font-size:.65rem;color:var(--t3);font-family:monospace}
-.go{font-size:.76rem;font-weight:700;color:var(--acc);display:flex;align-items:center;gap:4px;transition:gap .2s}
-.card:hover .go{gap:8px}
+        /* ─── CARD ─── */
+        .card {
+            display: block;
+            background: var(--s1);
+            border: 1px solid var(--b1);
+            border-radius: var(--rl);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            transition: transform .22s cubic-bezier(.22, 1, .36, 1), border-color .22s, box-shadow .22s;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(200, 241, 53, .22);
+            box-shadow: 0 24px 50px rgba(0, 0, 0, .5);
+        }
 
-/* EMPTY / LOADER */
-.empty{text-align:center;padding:80px 2rem;grid-column:1/-1;color:var(--t3)}
-.empty p{margin-top:8px;font-size:.82rem}
-.loader{text-align:center;padding:80px;grid-column:1/-1}
-.spin{width:32px;height:32px;border:2px solid var(--b1);border-top-color:var(--acc);border-radius:50%;animation:sp .7s linear infinite;margin:0 auto 10px}
-@keyframes sp{to{transform:rotate(360deg)}}
+        .card-img {
+            width: 100%;
+            height: 178px;
+            object-fit: cover;
+            display: block;
+        }
+        .card-ph {
+            width: 100%;
+            height: 178px;
+            background: var(--s2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--t3);
+        }
 
-/* FOOTER */
-footer{border-top:1px solid var(--b1);padding:28px 2rem;text-align:center;position:relative;z-index:1}
-footer p{font-size:.73rem;color:var(--t3);line-height:1.8}
-footer strong{color:var(--acc);font-weight:700}
+        .card-body {
+            padding: 14px 16px 16px;
+        }
+        .card-title {
+            font-size: .93rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 5px;
+            color: var(--t1);
+        }
+        .card-cap {
+            font-size: .79rem;
+            color: var(--t2);
+            line-height: 1.65;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        .card-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--b1);
+            padding-top: 10px;
+        }
+        .card-date {
+            font-size: .65rem;
+            color: var(--t3);
+            font-family: monospace;
+        }
+        .go {
+            font-size: .76rem;
+            font-weight: 700;
+            color: var(--acc);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: gap .2s;
+        }
+        .card:hover .go {
+            gap: 8px;
+        }
 
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--s2);border-radius:4px}
-@media(max-width:520px){.hero h1{font-size:2.4rem}.grid{grid-template-columns:1fr 1fr}}
-@media(max-width:380px){.grid{grid-template-columns:1fr}}
-</style>
+        /* ─── EMPTY / LOADER ─── */
+        .empty {
+            text-align: center;
+            padding: 80px 2rem;
+            grid-column: 1/-1;
+            color: var(--t3);
+        }
+        .empty p {
+            margin-top: 8px;
+            font-size: .82rem;
+        }
+        .loader {
+            text-align: center;
+            padding: 80px;
+            grid-column: 1/-1;
+        }
+        .spin {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--b1);
+            border-top-color: var(--acc);
+            border-radius: 50%;
+            animation: sp .7s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes sp {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            border-top: 1px solid var(--b1);
+            padding: 28px 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        footer p {
+            font-size: .73rem;
+            color: var(--t3);
+            line-height: 1.8;
+        }
+        footer strong {
+            color: var(--acc);
+            font-weight: 700;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--s2);
+            border-radius: 4px;
+        }
+
+        @media(max-width:520px) {
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .search-row {
+                max-width: 100%;
+                padding: 0 4px;
+            }
+        }
+        @media(max-width:380px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<nav>
-  <div class="brand">b00<span>.br</span></div>
-  <div class="nav-cnt" id="navCnt"></div>
-</nav>
+    <!-- ─── NAV ─── -->
+    <nav>
+        <div class="brand">b00<span>.br</span></div>
+        <div class="nav-cnt" id="navCnt"></div>
+    </nav>
 
-<div class="hero">
-  <h1>b00<span class="dot">.</span>br</h1>
-  <p class="hero-sub">Click any card to open the link.</p>
-  <div class="search-wrap">
-    <input type="text" id="searchInput" placeholder="Search links..." oninput="doSearch()">
-  </div>
-</div>
+    <!-- ─── HERO ─── -->
+    <div class="hero">
+        <h1>b00<span class="dot">.</span>br</h1>
+        <p class="hero-sub">Click any card to open the link.</p>
 
-<div class="sec">
-  <div class="count" id="countLabel"></div>
-  <div class="grid" id="grid"></div>
-</div>
-
-<footer>
-  <p>Links on this page may be affiliate or referral links.<br><strong>b00.br</strong></p>
-</footer>
-
-<script>
-const CONFIG = {owner:'pankaj112343',repo:'Algo-code',branch:'main'};
-const DATA = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/data/links.json`;
-
-let items = [], search = '';
-
-async function init(){
-  showLoader();
-  try{
-    const r=await fetch(DATA+'?t='+Date.now(),{headers:{'Accept':'application/vnd.github.v3+json'}});
-    if(!r.ok)throw 0;
-    const j=await r.json();
-    items=JSON.parse(decodeURIComponent(escape(atob(j.content.replace(/\n/g,'')))));
-  }catch(e){items=[];}
-  render();
-}
-
-function showLoader(){
-  document.getElementById('grid').innerHTML='<div class="loader"><div class="spin"></div><div style="font-size:.78rem;color:var(--t3)">Loading...</div></div>';
-}
-
-function doSearch(){search=document.getElementById('searchInput').value.toLowerCase();render();}
-
-function filtered(){
-  if(!search)return items;
-  return items.filter(s=>s.name.toLowerCase().includes(search)||(s.cap||'').toLowerCase().includes(search));
-}
-
-function render(){
-  const list=filtered();
-  const cnt=document.getElementById('navCnt');
-  const lbl=document.getElementById('countLabel');
-  cnt.textContent=list.length+' links';
-  lbl.textContent=list.length+' links'+(search?` matching "${search}"`:'');
-
-  const g=document.getElementById('grid');
-  if(!list.length){
-    g.innerHTML='<div class="empty"><div style="font-size:2.4rem">🔗</div><p>'+(search?'No results found':'No links yet')+' </p></div>';
-    return;
-  }
-  g.innerHTML=list.map(s=>{
-    const thumb=s.image
-      ?`<img class="card-img" src="${x(s.image)}" alt="${x(s.name)}" loading="lazy">`
-      :`<div class="card-ph">🔗</div>`;
-    return `<a class="card" href="${x(s.link||'#')}" target="_blank" rel="noopener noreferrer">
-      ${thumb}
-      <div class="card-body">
-        <div class="card-title">${x(s.name)}</div>
-        ${s.cap?`<div class="card-cap">${x(s.cap)}</div>`:''}
-        <div class="card-foot">
-          <span class="card-date">${s.date||''}</span>
-          <span class="go">Open ↗</span>
+        <!-- search + refresh row -->
+        <div class="search-row">
+            <div class="search-wrap">
+                <input type="text" id="searchInput" placeholder="Search links..." oninput="doSearch()" />
+            </div>
+            <button class="btn-refresh" id="refreshBtn" onclick="manualRefresh()" title="Refresh links">⟳</button>
         </div>
-      </div>
-    </a>`;
-  }).join('');
-}
+        <div class="status-pill" id="statusPill">● live</div>
+    </div>
 
-function x(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+    <!-- ─── GRID ─── -->
+    <div class="sec">
+        <div class="count" id="countLabel"></div>
+        <div class="grid" id="grid"></div>
+    </div>
 
-init();
-</script>
+    <!-- ─── FOOTER ─── -->
+    <footer>
+        <p>Links on this page may be affiliate or referral links.<br /><strong>b00.br</strong></p>
+    </footer>
+
+    <script>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  CONFIG – matches your admin repo
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        const CONFIG = { owner: 'pankaj112343', repo: 'Algo-code', branch: 'main' };
+        const DATA = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/data/links.json`;
+
+        let items = [],
+            search = '';
+        let refreshTimer = null;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  FETCH + RENDER
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        async function init(showLoaderFlag = true) {
+            if (showLoaderFlag) showLoader();
+            setStatus('syncing…', true);
+            try {
+                // aggressive cache busting: timestamp + random
+                const url = DATA + '?t=' + Date.now() + '_' + Math.random().toString(36).slice(2);
+                const r = await fetch(url, {
+                    headers: { 'Accept': 'application/vnd.github.v3+json' },
+                    cache: 'no-store' // force fresh
+                });
+                if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                const j = await r.json();
+                // GitHub returns content as base64
+                const raw = atob(j.content.replace(/\n/g, ''));
+                items = JSON.parse(raw);
+                setStatus(`✓ ${items.length} links`, true);
+            } catch (e) {
+                console.warn('Fetch error:', e);
+                items = [];
+                setStatus('⚠️ offline', false);
+            }
+            render();
+        }
+
+        // ─── manual refresh with button animation ───
+        function manualRefresh() {
+            const btn = document.getElementById('refreshBtn');
+            btn.classList.add('spin');
+            init(true);
+            setTimeout(() => btn.classList.remove('spin'), 700);
+        }
+
+        // ─── status pill ───
+        function setStatus(msg, ok) {
+            const el = document.getElementById('statusPill');
+            el.textContent = msg;
+            el.classList.toggle('active', ok);
+        }
+
+        // ─── loader ───
+        function showLoader() {
+            document.getElementById('grid').innerHTML =
+                '<div class="loader"><div class="spin"></div><div style="font-size:.78rem;color:var(--t3)">Loading…</div></div>';
+        }
+
+        // ─── search ───
+        function doSearch() {
+            search = document.getElementById('searchInput').value.toLowerCase();
+            render();
+        }
+
+        // ─── filter ───
+        function filtered() {
+            if (!search) return items;
+            return items.filter(s =>
+                s.name.toLowerCase().includes(search) ||
+                (s.cap || '').toLowerCase().includes(search)
+            );
+        }
+
+        // ─── render grid ───
+        function render() {
+            const list = filtered();
+            const cnt = document.getElementById('navCnt');
+            const lbl = document.getElementById('countLabel');
+            cnt.textContent = list.length + ' links';
+            lbl.textContent = list.length + ' links' + (search ? ` matching "${search}"` : '');
+
+            const g = document.getElementById('grid');
+            if (!list.length) {
+                g.innerHTML =
+                    `<div class="empty"><div style="font-size:2.4rem">🔗</div><p>${search ? 'No results found' : 'No links yet'}</p></div>`;
+                return;
+            }
+            g.innerHTML = list.map(s => {
+                const thumb = s.image ?
+                    `<img class="card-img" src="${x(s.image)}" alt="${x(s.name)}" loading="lazy">` :
+                    `<div class="card-ph">🔗</div>`;
+                return `
+              <a class="card" href="${x(s.link||'#')}" target="_blank" rel="noopener noreferrer">
+                ${thumb}
+                <div class="card-body">
+                  <div class="card-title">${x(s.name)}</div>
+                  ${s.cap ? `<div class="card-cap">${x(s.cap)}</div>` : ''}
+                  <div class="card-foot">
+                    <span class="card-date">${s.date || ''}</span>
+                    <span class="go">Open ↗</span>
+                  </div>
+                </div>
+              </a>
+            `;
+            }).join('');
+        }
+
+        // ─── safe escape ───
+        function x(s) {
+            return String(s || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  AUTO-REFRESH every 30 seconds
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function startAutoRefresh() {
+            if (refreshTimer) clearInterval(refreshTimer);
+            refreshTimer = setInterval(() => {
+                // silently refresh (no loader flash)
+                init(false);
+            }, 30000); // 30 sec
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  BOOT
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        init(true);
+        startAutoRefresh();
+
+        // ─── optional: refresh when tab becomes visible ───
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                // user came back – refresh quietly
+                init(false);
+            }
+        });
+
+        // ─── keyboard shortcut: press 'r' to refresh ───
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'r' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                const active = document.activeElement;
+                if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) return;
+                e.preventDefault();
+                manualRefresh();
+            }
+        });
+    </script>
+
 </body>
 </html>
